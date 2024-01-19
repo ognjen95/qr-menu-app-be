@@ -67,8 +67,6 @@ export class UserRepository implements IUserRepository {
       where: { email },
     });
 
-    console.log({ user });
-
     return plainToInstance(User, user);
   }
 

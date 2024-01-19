@@ -145,8 +145,8 @@ type MenuItemEntity {
   image: String
   isAvailable: Boolean!
   menu: MenuEntity
-  menuSectionId: String!
   name: String!
+  sectionId: String!
   tags: [String!]!
   updatedAt: DateTime!
   variants: [MenuItemVariant!]!
@@ -219,7 +219,7 @@ input MenuSectionsIdInput {
 }
 
 input MenuSectionsOptionsInput {
-  where: MenuSectionsWhere
+  where: MenuSectionsWhere = {}
 }
 
 input MenuSectionsWhere {

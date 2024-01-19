@@ -11,7 +11,7 @@ class GetMenuSectionssHandler implements IQueryHandler<GetMenuSectionssQuery> {
   constructor(
     @Inject(MENU_SECTION_REPOSITORY_TOKEN)
     private readonly menuSectionRepository: IMenuSectionRepository,
-  ) {}
+  ) { }
 
   async execute({
     options,

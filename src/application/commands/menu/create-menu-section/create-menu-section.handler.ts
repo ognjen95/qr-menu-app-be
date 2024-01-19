@@ -17,8 +17,6 @@ class CreateMenuSectionHandler
   async execute({ dto }: CreateMenuSectionCommand): Promise<string> {
     const menuSection = new MenuSection(dto.name, dto.menuId, dto.description);
 
-    console.log('menuSection', dto);
-
     const createdMenu = await this.menuSectionRepository.create(menuSection);
 
     return createdMenu.id;

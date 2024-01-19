@@ -21,5 +21,5 @@ export class MenuSectionsWhere {
 @InputType()
 export class MenuSectionsOptionsInput {
   @Field({ nullable: true })
-  where?: MenuSectionsWhere;
+  where?: MenuSectionsWhere = {};
 }

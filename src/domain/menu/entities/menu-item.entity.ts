@@ -22,7 +22,7 @@ export class MenuItemEntity {
   menu: MenuEntity;
 
   @Field()
-  menuSectionId: string;
+  sectionId: string;
 
   @Field(() => [MenuItemVariant])
   variants: MenuItemVariant[];

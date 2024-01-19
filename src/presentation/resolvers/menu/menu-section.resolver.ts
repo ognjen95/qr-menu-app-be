@@ -1,4 +1,10 @@
-import { Resolver, Mutation, Args, ResolveField } from '@nestjs/graphql';
+import {
+  Resolver,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 
 import { CreateMenuSectionInput } from '../../../domain/menu/dto/create-menu-section.input';
 import { MenuSectionEntity } from '../../../domain/menu/entities/menu-section.entity';
@@ -15,7 +21,7 @@ export class MenuSectionResolver {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-  ) {}
+  ) { }
 
   @Mutation(() => String)
   async createMenuSection(
@@ -30,9 +36,14 @@ export class MenuSectionResolver {
 
   @ResolveField('menuItems', () => MenuItemsConnection)
   findMenuItems(
+    @Parent() menuSection: MenuSectionEntity,
     @Args('options', { nullable: true }) options: MenuItemOptionsInput = {},
     @CurrentUser() currentUser: CurrentUserInfo,
   ) {
+    if (!options.where) options.where = {};
+
+    options.where.sectionId = menuSection.id;
+
     return this.queryBus.execute(new GetMenuItemsQuery(options, currentUser));
   }
 }

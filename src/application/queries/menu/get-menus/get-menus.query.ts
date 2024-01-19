@@ -6,6 +6,6 @@ export class GetMenusQuery {
     public readonly options: MenuOptionsInput,
     public readonly currentUser: CurrentUserInfo,
   ) {
-    if (currentUser.tenantId) options.where.tenantId = currentUser.tenantId;
+    if (currentUser?.tenantId) options.where.tenantId = currentUser.tenantId;
   }
 }

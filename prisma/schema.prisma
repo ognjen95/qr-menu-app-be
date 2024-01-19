@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model CustomerTenant {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  externalId  String    @unique
+  email       String    @unique
+  firstName   String
+  middleName  String?
+  lastName    String
+  birthday    DateTime?
+  createdAt   DateTime  @default(now())
+  userRole    UserRoles
+  nationality String?
+  phone       String?
+  tenantId    String    @db.ObjectId
+}
+
+type Location {
+  address String?
+  city    String?
+  country String?
+  state   String?
+}
+
+type MenuItemVariant {
+  name        String
+  description String?
+  price       Float
+}
+
+model MenuSection {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  menu   Menu?   @relation(fields: [menuId], references: [id])
+  menuId String? @db.ObjectId
+
+  menuItems MenuItem[]
+}
+
+model MenuItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  variants MenuItemVariant[]
+  alergens String[]
+  tags     String[]
+  image String?
+  isAvailable Boolean @default(true)
+  section   MenuSection? @relation(fields: [sectionId], references: [id])
+  sectionId String?      @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Menu {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+
+  restaurants Restaurant[]
+
+  tenantId String? @db.ObjectId
+
+  isVisible Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  menuSection MenuSection[]
+}
+
+model Rating {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  meal        Int
+  service     Int
+  cleanliness Int
+  price       Int
+  atmosphere  Int
+  comment     String?
+
+  createdAt DateTime @default(now())
+
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  restaurantId String?     @db.ObjectId
+}
+
+model Restaurant {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  location    Location?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  image       String?
+
+  ratings Rating[]
+
+  tenantId String? @db.ObjectId
+
+  menu   Menu?   @relation(fields: [menuId], references: [id])
+  menuId String? @db.ObjectId
+}
+
+model TaskComment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  text        String
+  created     DateTime @default(now())
+  authorId    String
+  authorName  String
+  authorImage String
+  Task        Task?    @relation(fields: [taskId], references: [id])
+  taskId      String?  @db.ObjectId
+}
+
+enum TaskType {
+  TASK
+  REMINDER
+  EVENT
+  CASE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskStatus {
+  TO_DO
+  IN_PROGRESS
+  BLOCKED
+  IN_REVIEW
+  COMPLETED
+}
+
+model Task {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  startDate   DateTime
+  endDate     DateTime
+  taskStatus  TaskStatus   @default(TO_DO)
+  taskType    TaskType     @default(REMINDER)
+  priority    TaskPriority @default(LOW)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  createdById   String
+  createdByName String
+
+  caseId   String?
+  caseName String?
+
+  assigneesIds String[] @db.ObjectId
+
+  comments TaskComment[]
+}
+
+enum UserRoles {
+  ADMIN
+  SUPER_ADMIN
+  CUSTOMER_OWNER
+  CUSTOMER_EMPLOYEE
+  VISITOR_CLIENT
+}

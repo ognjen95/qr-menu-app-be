@@ -1,0 +1,423 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input ApplicantsIdsInput {
+  hasSome: String!
+}
+
+type AuthReturn {
+  accessToken: String!
+  idToken: String!
+  refreshToken: String!
+}
+
+type Chat {
+  token: String!
+  userId: String!
+}
+
+input CreateCustomerTentantInput {
+  birthday: DateTime
+  email: String!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  name: String!
+  nationality: String
+  password: String!
+  phone: String
+  tenantId: String
+  userRole: UserRoles
+}
+
+input CreateMenuInput {
+  description: String
+  isVisible: Boolean
+  name: String!
+  restaurantId: String
+}
+
+input CreateMenuItemInput {
+  alergens: [String!]
+  description: String
+  image: String
+  isAvailable: Boolean
+  menuId: String!
+  menuSectionId: String!
+  name: String!
+  tags: [String!]
+  variants: [MenuItemVariantInput!]!
+}
+
+input CreateMenuSectionInput {
+  description: String
+  menuId: String
+  name: String!
+}
+
+input CreateRestaurantInput {
+  description: String
+  image: String
+  location: LocationInput
+  menuId: String
+  name: String!
+}
+
+input CreateTaskInput {
+  assigneeIds: [String!]
+  caseId: String
+  description: String
+  endDate: DateTime!
+  id: String
+  name: String!
+  priority: TaskPriority!
+  startDate: DateTime!
+  status: TaskStatus!
+  type: TaskType!
+}
+
+input CreateUserInput {
+  birthday: DateTime
+  email: String!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  nationality: String
+  password: String!
+  phone: String
+  tenantId: String
+  userRole: UserRoles
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type LocationEntity {
+  address: String
+  city: String
+  country: String
+  state: String
+}
+
+input LocationInput {
+  address: String
+  city: String
+  country: String
+  state: String
+}
+
+type MenuConnection {
+  edges: [MenuEdges!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MenuEdges {
+  cursor: String!
+  node: MenuEntity!
+}
+
+type MenuEntity {
+  createdAt: DateTime!
+  description: String
+  id: String!
+  isVisible: Boolean!
+  menuSections(options: MenuSectionsOptionsInput): MenuSectionConnection!
+  name: String!
+  restaurantId: String
+  restaurants: [RestaurantEntity!]
+  tenantId: String!
+  updatedAt: DateTime!
+}
+
+input MenuIdInput {
+  equals: String
+  in: [String!]
+}
+
+type MenuItemEntity {
+  alergens: [String!]!
+  createdAt: DateTime!
+  id: String!
+  image: String
+  isAvailable: Boolean!
+  menu: MenuEntity
+  menuSectionId: String!
+  name: String!
+  tags: [String!]!
+  updatedAt: DateTime!
+  variants: [MenuItemVariant!]!
+}
+
+input MenuItemIdInput {
+  equals: String
+  in: [String!]
+}
+
+input MenuItemOptionsInput {
+  where: MenuItemWhere
+}
+
+type MenuItemVariant {
+  name: String!
+  price: Float!
+}
+
+input MenuItemVariantInput {
+  name: String!
+  price: Float!
+}
+
+input MenuItemWhere {
+  id: MenuItemIdInput
+  sectionId: String
+}
+
+type MenuItemsConnection {
+  edges: [MenuItemsEdges!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MenuItemsEdges {
+  cursor: String!
+  node: MenuItemEntity!
+}
+
+input MenuOptionsInput {
+  where: MenuWhere
+}
+
+type MenuSectionConnection {
+  edges: [MenuSectionEdges!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MenuSectionEdges {
+  cursor: String!
+  node: MenuSectionEntity!
+}
+
+type MenuSectionEntity {
+  createdAt: DateTime!
+  description: String
+  id: String!
+  isVisible: Boolean!
+  menuId: String!
+  menuItems(options: MenuItemOptionsInput): MenuItemsConnection!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input MenuSectionsIdInput {
+  equals: String
+  in: [String!]
+}
+
+input MenuSectionsOptionsInput {
+  where: MenuSectionsWhere
+}
+
+input MenuSectionsWhere {
+  id: MenuSectionsIdInput
+  menuId: String
+}
+
+input MenuWhere {
+  id: MenuIdInput
+  tenantId: String
+}
+
+type Mutation {
+  createChat(chatName: String!, userIds: [String!]!): String!
+  createCustomerBusiness(args: CreateCustomerTentantInput!): String!
+  createMenu(createMenuInput: CreateMenuInput!): String!
+  createMenuItem(args: CreateMenuItemInput!): String!
+  createMenuSection(createMenuSectionInput: CreateMenuSectionInput!): String!
+  createRestaurant(args: CreateRestaurantInput!): String!
+  createTask(createTaskInput: CreateTaskInput!): TaskEntity!
+  createUser(args: CreateUserInput!): String!
+  login(email: String!, password: String!): AuthReturn!
+  removeUser(id: String!): UserEntity!
+  updateUser(args: UpdateUserInput!): UserEntity!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  chatAccessToken: Chat!
+  menu(options: MenuOptionsInput): MenuEntity!
+  menuItem: [MenuItemEntity!]!
+  menus(options: MenuOptionsInput): MenuConnection!
+  restaurants(options: RestaurantOptionsInput): RestaurantConnection!
+  tasks(options: TaskQueryOptionsInput): TaskConnection!
+  userById(id: String!): UserEntity!
+  users(args: UserQueryOptionsInput): UserConnection!
+}
+
+type RestaurantConnection {
+  edges: [RestaurantEdges!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RestaurantEdges {
+  cursor: String!
+  node: RestaurantEntity!
+}
+
+type RestaurantEntity {
+  createdAt: DateTime!
+  description: String
+  id: String!
+  image: String
+  location: LocationEntity
+  menuId: String!
+  name: String!
+  tenantId: String!
+  updatedAt: DateTime!
+}
+
+input RestaurantIdInput {
+  equals: String
+  in: [String!]
+}
+
+input RestaurantOptionsInput {
+  where: RestaurantWhere
+}
+
+input RestaurantWhere {
+  id: RestaurantIdInput
+  tenantId: String
+}
+
+type TaskConnection {
+  edges: [TaskEdges!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TaskEdges {
+  cursor: String!
+  node: TaskEntity!
+}
+
+type TaskEntity {
+  assignees: [UserEntity!]
+  assigneesIds: [String!]
+  caseId: String
+  caseName: String
+  createdById: String!
+  createdByName: String!
+  description: String
+  endDate: DateTime!
+  id: String!
+  name: String!
+  priority: TaskPriority!
+  startDate: DateTime!
+  taskStatus: TaskStatus!
+  taskType: TaskType!
+}
+
+"""Priority of the task"""
+enum TaskPriority {
+  HIGH
+  LOW
+  MEDIUM
+}
+
+input TaskQueryOptionsInput {
+  assigneeIds: [String!]
+  caseId: String
+  description: String
+  endDate: DateTime
+  id: String
+  name: String
+  priority: TaskPriority
+  startDate: DateTime
+  status: TaskStatus
+  type: TaskType
+}
+
+"""Status of the task"""
+enum TaskStatus {
+  BLOCKED
+  COMPLETED
+  IN_PROGRESS
+  IN_REVIEW
+  TO_DO
+}
+
+"""Type of the task"""
+enum TaskType {
+  CASE
+  EVENT
+  REMINDER
+  TASK
+}
+
+input UpdateUserInput {
+  birthday: DateTime
+  email: String
+  firstName: String
+  id: String!
+  lastName: String
+  middleName: String
+  nationality: String
+  password: String
+  phone: String
+  tenantId: String
+  userRole: UserRoles
+}
+
+type UserConnection {
+  edges: [UserEdges!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserEdges {
+  cursor: String!
+  node: UserEntity!
+}
+
+type UserEntity {
+  birthday: DateTime
+  createdAt: DateTime!
+  email: String!
+  externalId: String!
+  firstName: String!
+  id: String!
+  lastName: String!
+  middleName: String
+  nationality: String
+  phone: String
+  tenantId: String
+  userRole: UserRoles!
+}
+
+input UserQueryOptionsInput {
+  where: UserWhereInput
+}
+
+enum UserRoles {
+  ADMIN
+  CUSTOMER_EMPLOYEE
+  CUSTOMER_OWNER
+  SUPER_ADMIN
+  VISITOR_CLIENT
+}
+
+input UserWhereInput {
+  applicationId: ApplicantsIdsInput!
+}

@@ -6,6 +6,11 @@ export class GetRestaurantsQuery {
     public readonly options: RestaurantOptionsInput,
     public readonly currentUser: CurrentUserInfo,
   ) {
-    if (currentUser.tenantId) options.where.tenantId = currentUser.tenantId;
+    if (currentUser.tenantId) {
+      this.options.where = {
+        ...this.options.where,
+        tenantId: currentUser.tenantId,
+      };
+    }
   }
 }

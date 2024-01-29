@@ -18,6 +18,9 @@ export class MenuItemEntity {
   @Field()
   name: string;
 
+  @Field({ nullable: true })
+  description?: string;
+
   @Field(() => MenuEntity, { nullable: true })
   menu: MenuEntity;
 

@@ -141,6 +141,7 @@ input MenuIdInput {
 type MenuItemEntity {
   alergens: [String!]!
   createdAt: DateTime!
+  description: String
   id: String!
   image: String
   isAvailable: Boolean!

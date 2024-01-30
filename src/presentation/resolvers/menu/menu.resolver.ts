@@ -19,6 +19,7 @@ import { GetMenuSectionssQuery } from '../../../application/queries/menu/get-men
 import { MenuSectionsOptionsInput } from '../../../domain/menu/dto/menu-section-query-options';
 import { MenuSectionConnection } from '../../../domain/menu/entities/menu-section.connection';
 import { MenuConnection } from '../../../domain/menu/entities/menu.connection';
+import { IsPublic } from '../../decorators/is-public';
 
 @Resolver(() => MenuEntity)
 export class MenuResolver {
@@ -51,6 +52,14 @@ export class MenuResolver {
     @CurrentUser() currentUser: CurrentUserInfo,
   ) {
     return this.queryBus.execute(new GetMenuQuery(options, currentUser));
+  }
+
+  @IsPublic()
+  @Query(() => MenuEntity, { name: 'publicMenu' })
+  findPublicMenu(
+    @Args('options', { nullable: true }) options: MenuOptionsInput = {},
+  ) {
+    return this.queryBus.execute(new GetMenuQuery(options));
   }
 
   @ResolveField('menuSections', () => MenuSectionConnection)

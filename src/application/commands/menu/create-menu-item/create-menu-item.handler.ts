@@ -20,6 +20,10 @@ class CreateMenuItemHandler implements ICommandHandler<CreateMenuItemCommand> {
       dto.description,
     );
 
+    menuItem.image = dto.image;
+    menuItem.tags = dto.tags;
+    menuItem.alergens = dto.alergens;
+
     const createdMenuItem = await this.menuItemRepository.create(menuItem);
 
     return createdMenuItem.id;

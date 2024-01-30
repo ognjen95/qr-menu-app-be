@@ -16,6 +16,7 @@ import { MenuModule } from './presentation/modules/menu/menu.module';
 import { RestaurantModule } from './presentation/modules/restaurant/restaurant.module';
 import { MenuSectionModule } from './presentation/modules/menu/menu-section.module';
 import { MenuItemModule } from './presentation/modules/menu/menu-item.module';
+import { FilesModule } from './presentation/modules/files.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { MenuItemModule } from './presentation/modules/menu/menu-item.module';
     RestaurantModule,
     MenuSectionModule,
     MenuItemModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [

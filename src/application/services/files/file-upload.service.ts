@@ -27,14 +27,14 @@ export class FileService implements IFileServiceInterface {
     },
   });
 
-  private bucketName = 'qr-menu-';
-  // private bucketName = process.env.AWS_BUCKET_NAME;
+  private bucketNamePublic = 'qr-menu-public';
+  // private bucketNamePublic = process.env.AWS_BUCKET_NAME;
 
   async upload(file: File) {
     const Key = this.generateFileName(file.name);
 
     const command = new PutObjectCommand({
-      Bucket: this.bucketName,
+      Bucket: this.bucketNamePublic,
       Body: file,
       Key,
     });
@@ -50,7 +50,7 @@ export class FileService implements IFileServiceInterface {
     const Key = this.generateFileName(fileName);
 
     const command = new PutObjectCommand({
-      Bucket: this.bucketName,
+      Bucket: this.bucketNamePublic,
       Key,
     });
 
@@ -68,7 +68,7 @@ export class FileService implements IFileServiceInterface {
 
   async getDownloadLink(fileId: string): Promise<string> {
     const command = new GetObjectCommand({
-      Bucket: this.bucketName,
+      Bucket: this.bucketNamePublic,
       Key: fileId,
     });
 

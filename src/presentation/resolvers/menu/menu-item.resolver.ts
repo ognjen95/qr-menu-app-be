@@ -5,6 +5,9 @@ import { CommandBus } from '@nestjs/cqrs';
 import { CreateMenuItemCommand } from '../../../application/commands/menu/create-menu-item/create-menu-item.command';
 import { CurrentUser } from '../../decorators/current-user';
 import { CurrentUserInfo } from '../auth/types';
+import { UpdateMenuItemCommand } from '../../../application/commands/menu/update-menu-item/update-menu-item.command';
+import { UpdateMenuItemInput } from '../../../domain/menu/dto/update-menu-item.input';
+import { DeleteMenuItemCommand } from '../../../application/commands/menu/delete-menu-item/delete-menu-item.command';
 
 @Resolver(() => MenuItemEntity)
 export class MenuItemResolver {
@@ -18,6 +21,24 @@ export class MenuItemResolver {
     return this.commandBus.execute(
       new CreateMenuItemCommand(createMenuItemInput, currentUser),
     );
+  }
+
+  @Mutation(() => String)
+  updateMenuItem(
+    @Args('args') args: UpdateMenuItemInput,
+    @CurrentUser() currentUser: CurrentUserInfo,
+  ) {
+    return this.commandBus.execute(
+      new UpdateMenuItemCommand(args, currentUser),
+    );
+  }
+
+  @Mutation(() => String)
+  deleteMenuItem(
+    @Args('id') id: string,
+    @CurrentUser() currentUser: CurrentUserInfo,
+  ) {
+    return this.commandBus.execute(new DeleteMenuItemCommand(id, currentUser));
   }
 
   @Query(() => [MenuItemEntity], { name: 'menuItem' })

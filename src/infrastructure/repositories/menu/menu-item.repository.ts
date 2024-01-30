@@ -15,20 +15,51 @@ export class MenuItemRepository implements IMenuItemRepository {
   async create(dto: MenuItem): Promise<MenuItem> {
     const createdMenuItem = await this.db.menuItem.create({
       data: {
-        id: dto.id,
         name: dto.name,
         variants: dto.variants,
         description: dto.description,
         sectionId: dto.menuSectionId,
+        image: dto.image,
+        tags: dto.tags,
+        alergens: dto.alergens,
       },
     });
 
     return plainToInstance(MenuItem, createdMenuItem);
   }
 
+  async update(dto: MenuItem): Promise<MenuItem> {
+    const updatedMenuItem = await this.db.menuItem.update({
+      where: {
+        id: dto.id,
+      },
+      data: {
+        name: dto.name,
+        variants: dto.variants,
+        description: dto.description,
+        sectionId: dto.menuSectionId,
+        image: dto.image,
+        tags: dto.tags,
+        alergens: dto.alergens,
+      },
+    });
+
+    return plainToInstance(MenuItem, updatedMenuItem);
+  }
+
   async find(options: MenuItemOptionsInput): Promise<MenuItem[]> {
     const menuItems = await this.db.menuItem.findMany(options);
 
     return plainToInstance(MenuItem, menuItems);
+  }
+
+  async delete(id: string): Promise<MenuItem> {
+    const deletedMenuItem = await this.db.menuItem.delete({
+      where: {
+        id,
+      },
+    });
+
+    return plainToInstance(MenuItem, deletedMenuItem);
   }
 }

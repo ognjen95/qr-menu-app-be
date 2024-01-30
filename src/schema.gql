@@ -242,8 +242,10 @@ type Mutation {
   createRestaurant(args: CreateRestaurantInput!): String!
   createTask(createTaskInput: CreateTaskInput!): TaskEntity!
   createUser(args: CreateUserInput!): String!
+  deleteMenuItem(id: String!): String!
   login(email: String!, password: String!): AuthReturn!
   removeUser(id: String!): UserEntity!
+  updateMenuItem(args: UpdateMenuItemInput!): String!
   updateUser(args: UpdateUserInput!): UserEntity!
 }
 
@@ -254,11 +256,18 @@ type PageInfo {
   startCursor: String
 }
 
+type PresignedUrlReturn {
+  id: String!
+  link: String!
+}
+
 type Query {
   chatAccessToken: Chat!
   menu(options: MenuOptionsInput): MenuEntity!
   menuItem: [MenuItemEntity!]!
   menus(options: MenuOptionsInput): MenuConnection!
+  presignedUrl(fileNames: [String!]!): [PresignedUrlReturn]!
+  publicMenu(options: MenuOptionsInput): MenuEntity!
   restaurants(options: RestaurantOptionsInput): RestaurantConnection!
   tasks(options: TaskQueryOptionsInput): TaskConnection!
   userById(id: String!): UserEntity!
@@ -365,6 +374,19 @@ enum TaskType {
   EVENT
   REMINDER
   TASK
+}
+
+input UpdateMenuItemInput {
+  alergens: [String!]
+  description: String
+  id: String!
+  image: String
+  isAvailable: Boolean
+  menuId: String
+  menuSectionId: String
+  name: String
+  tags: [String!]
+  variants: [MenuItemVariantInput!]
 }
 
 input UpdateUserInput {

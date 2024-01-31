@@ -26,7 +26,7 @@ export class MenuResolver {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-  ) { }
+  ) {}
 
   @Mutation(() => String)
   createMenu(

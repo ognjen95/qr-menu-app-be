@@ -9,8 +9,5 @@ export class CreateMenuInput {
   description?: string;
 
   @Field({ nullable: true })
-  restaurantId?: string;
-
-  @Field({ nullable: true })
   isVisible: boolean;
 }

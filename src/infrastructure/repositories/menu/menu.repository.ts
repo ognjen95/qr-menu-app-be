@@ -19,6 +19,11 @@ export class MenuRepository implements IMenuRepository {
         name: dto.name,
         tenantId: dto.tenantId,
         description: dto.description,
+        restaurants: {
+          connect: dto.restaurants.map((restaurant) => ({
+            id: restaurant.id,
+          })),
+        },
       },
     });
 

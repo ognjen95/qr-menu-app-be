@@ -13,12 +13,7 @@ class CreateMenuHandler implements ICommandHandler<CreateMenuCommand> {
   ) {}
 
   async execute({ dto, currentUser }: CreateMenuCommand): Promise<string> {
-    const menu = new Menu(
-      dto.name,
-      currentUser.tenantId,
-      dto.description,
-      dto.restaurantId,
-    );
+    const menu = new Menu(dto.name, currentUser.tenantId, dto.description);
 
     const createdMenu = await this.menuRepository.create(menu);
 

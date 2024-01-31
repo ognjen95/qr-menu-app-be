@@ -5,7 +5,6 @@ export class Menu extends MenuEntity {
     public name: string,
     public tenantId: string,
     public description?: string,
-    public restaurantId?: string,
   ) {
     super();
   }

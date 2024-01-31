@@ -27,7 +27,7 @@ export class RestaurantEntity {
   @Field()
   tenantId: string;
 
-  @Field()
+  @Field({ nullable: true })
   menuId: string;
 
   // @Field(() => Int)

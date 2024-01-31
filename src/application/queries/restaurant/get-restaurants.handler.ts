@@ -11,12 +11,14 @@ class GetRestaurantsHandler implements IQueryHandler<GetRestaurantsQuery> {
   constructor(
     @Inject(RESTAURANT_REPOSITORY_TOKEN)
     private readonly restaurantRepository: IRestaurantRepository,
-  ) {}
+  ) { }
 
   async execute({
     options,
   }: GetRestaurantsQuery): Promise<Connection<Restaurant>> {
     const restaurants = await this.restaurantRepository.find(options);
+
+    console.log({ options, restaurants })
 
     return connectionFromArray(restaurants, {});
   }

@@ -21,9 +21,6 @@ export class MenuEntity {
   @Field(() => [MenuSectionEntity])
   menuSections: MenuSection[];
 
-  @Field({ nullable: true })
-  restaurantId?: string;
-
   @Field()
   tenantId: string;
 

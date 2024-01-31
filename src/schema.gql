@@ -35,7 +35,6 @@ input CreateMenuInput {
   description: String
   isVisible: Boolean
   name: String!
-  restaurantId: String
 }
 
 input CreateMenuItemInput {
@@ -127,7 +126,6 @@ type MenuEntity {
   isVisible: Boolean!
   menuSections(options: MenuSectionsOptionsInput): MenuSectionConnection!
   name: String!
-  restaurantId: String
   restaurants: [RestaurantEntity!]
   tenantId: String!
   updatedAt: DateTime!
@@ -291,7 +289,7 @@ type RestaurantEntity {
   id: String!
   image: String
   location: LocationEntity
-  menuId: String!
+  menuId: String
   name: String!
   tenantId: String!
   updatedAt: DateTime!

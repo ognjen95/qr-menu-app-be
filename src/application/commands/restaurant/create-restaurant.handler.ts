@@ -12,7 +12,7 @@ class CreateRestaurantHandler
   constructor(
     @Inject(RESTAURANT_REPOSITORY_TOKEN)
     private readonly restaurantRepository: IRestaurantRepository,
-  ) {}
+  ) { }
 
   async execute({
     dto,

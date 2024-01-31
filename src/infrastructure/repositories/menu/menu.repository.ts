@@ -35,4 +35,24 @@ export class MenuRepository implements IMenuRepository {
 
     return plainToInstance(Menu, foundMenus);
   }
+
+  async update(dto: Menu): Promise<Menu> {
+    const updatedMenu = await this.db.menu.update({
+      where: { id: dto.id },
+      data: {
+        name: dto.name,
+        description: dto.description,
+        isVisible: dto.isVisible,
+        updatedAt: new Date(),
+      },
+    });
+
+    return plainToInstance(Menu, updatedMenu);
+  }
+
+  async delete(id: string): Promise<Menu> {
+    const deletedMenu = await this.db.menu.delete({ where: { id } });
+
+    return plainToInstance(Menu, deletedMenu);
+  }
 }

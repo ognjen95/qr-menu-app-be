@@ -11,6 +11,8 @@ import { MenuSectionRepository } from '../../../infrastructure/repositories/menu
 import GetMenuHandler from '../../../application/queries/menu/get-menu/get-menu.handler';
 import GetMenusHandler from '../../../application/queries/menu/get-menus/get-menus.handler';
 import GetMenuSectionssHandler from '../../../application/queries/menu/get-menu-sections/get-menu-sections.handler';
+import UpdateMenuHandler from '../../../application/commands/menu/update-menu/update-menu.handler';
+import DeleteMenuHandler from '../../../application/commands/menu/delete-menu/delete-menu.handler';
 
 @Module({
   imports: [CqrsModule],
@@ -20,6 +22,8 @@ import GetMenuSectionssHandler from '../../../application/queries/menu/get-menu-
     GetMenuHandler,
     GetMenusHandler,
     GetMenuSectionssHandler,
+    UpdateMenuHandler,
+    DeleteMenuHandler,
     {
       provide: MENU_REPOSITORY_TOKEN,
       useClass: MenuRepository,

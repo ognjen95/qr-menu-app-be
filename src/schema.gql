@@ -240,10 +240,14 @@ type Mutation {
   createRestaurant(args: CreateRestaurantInput!): String!
   createTask(createTaskInput: CreateTaskInput!): TaskEntity!
   createUser(args: CreateUserInput!): String!
+  deleteMenu(id: String!): String!
   deleteMenuItem(id: String!): String!
+  deleteRestaurant(id: String!): String!
   login(email: String!, password: String!): AuthReturn!
   removeUser(id: String!): UserEntity!
+  updateMenu(args: UpdateMenuInput!): String!
   updateMenuItem(args: UpdateMenuItemInput!): String!
+  updateRestaurant(args: UpdateRestaurantInput!): String!
   updateUser(args: UpdateUserInput!): UserEntity!
 }
 
@@ -374,6 +378,13 @@ enum TaskType {
   TASK
 }
 
+input UpdateMenuInput {
+  description: String
+  id: String!
+  isVisible: Boolean
+  name: String
+}
+
 input UpdateMenuItemInput {
   alergens: [String!]
   description: String
@@ -385,6 +396,15 @@ input UpdateMenuItemInput {
   name: String
   tags: [String!]
   variants: [MenuItemVariantInput!]
+}
+
+input UpdateRestaurantInput {
+  description: String
+  id: String!
+  image: String
+  location: LocationInput
+  menuId: String
+  name: String
 }
 
 input UpdateUserInput {

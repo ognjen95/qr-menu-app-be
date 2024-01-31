@@ -33,4 +33,28 @@ export class RestaurantRepository implements IRestaurantRepository {
 
     return plainToInstance(Restaurant, findRestaurants);
   }
+
+  async update(dto: Restaurant): Promise<Restaurant> {
+    const updatedRestaurant = await this.db.restaurant.update({
+      where: { id: dto.id },
+      data: {
+        name: dto.name,
+        description: dto.description,
+        location: dto.location,
+        image: dto.image,
+        menuId: dto.menuId,
+        updatedAt: new Date(),
+      },
+    });
+
+    return plainToInstance(Restaurant, updatedRestaurant);
+  }
+
+  async delete(id: string): Promise<Restaurant> {
+    const deletedRestaurant = await this.db.restaurant.delete({
+      where: { id },
+    });
+
+    return plainToInstance(Restaurant, deletedRestaurant);
+  }
 }

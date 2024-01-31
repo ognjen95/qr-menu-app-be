@@ -18,8 +18,6 @@ class GetRestaurantsHandler implements IQueryHandler<GetRestaurantsQuery> {
   }: GetRestaurantsQuery): Promise<Connection<Restaurant>> {
     const restaurants = await this.restaurantRepository.find(options);
 
-    console.log({ options, restaurants })
-
     return connectionFromArray(restaurants, {});
   }
 }

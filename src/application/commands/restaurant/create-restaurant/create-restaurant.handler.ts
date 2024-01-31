@@ -1,9 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateRestaurantCommand } from './create-restaurant.command';
-import { IRestaurantRepository } from '../../common/interfaces/restaurant/restaurant-repository.interface';
+import { IRestaurantRepository } from '../../../common/interfaces/restaurant/restaurant-repository.interface';
 import { Inject } from '@nestjs/common';
-import { Restaurant } from '../../../domain/restaurant/restaurant';
-import { RESTAURANT_REPOSITORY_TOKEN } from '../../common/constants/tokens';
+import { Restaurant } from '../../../../domain/restaurant/restaurant';
+import { RESTAURANT_REPOSITORY_TOKEN } from '../../../common/constants/tokens';
 
 @CommandHandler(CreateRestaurantCommand)
 class CreateRestaurantHandler

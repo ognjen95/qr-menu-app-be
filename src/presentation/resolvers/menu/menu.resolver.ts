@@ -20,6 +20,10 @@ import { MenuSectionsOptionsInput } from '../../../domain/menu/dto/menu-section-
 import { MenuSectionConnection } from '../../../domain/menu/entities/menu-section.connection';
 import { MenuConnection } from '../../../domain/menu/entities/menu.connection';
 import { IsPublic } from '../../decorators/is-public';
+import { UpdateMenuInput } from '../../../domain/menu/dto/update-menu.input';
+import { UpdateMenuCommand } from '../../../application/commands/menu/update-menu/update-menu.command';
+import { DeleteMenuItemCommand } from '../../../application/commands/menu/delete-menu-item/delete-menu-item.command';
+import { DeleteMenuCommand } from '../../../application/commands/menu/delete-menu/delete-menu.command';
 
 @Resolver(() => MenuEntity)
 export class MenuResolver {
@@ -36,6 +40,22 @@ export class MenuResolver {
     return this.commandBus.execute(
       new CreateMenuCommand(createMenuInput, currentUser),
     );
+  }
+
+  @Mutation(() => String)
+  updateMenu(
+    @Args('args') args: UpdateMenuInput,
+    @CurrentUser() currentUser: CurrentUserInfo,
+  ) {
+    return this.commandBus.execute(new UpdateMenuCommand(args, currentUser));
+  }
+
+  @Mutation(() => String)
+  deleteMenu(
+    @Args('id') id: string,
+    @CurrentUser() currentUser: CurrentUserInfo,
+  ) {
+    return this.commandBus.execute(new DeleteMenuCommand(id, currentUser));
   }
 
   @Query(() => MenuConnection, { name: 'menus' })

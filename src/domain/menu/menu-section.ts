@@ -2,10 +2,16 @@ import { MenuSectionEntity } from './entities/menu-section.entity';
 
 export class MenuSection extends MenuSectionEntity {
   constructor(
-    public readonly name: string,
-    public readonly menuId: string,
-    public readonly description?: string,
+    public name: string,
+    public menuId: string,
+    public description?: string,
   ) {
     super();
+  }
+
+  removeMenuItem(id: string): void {
+    this.menuItemIds = this.menuItemIds.filter(
+      (menuItemId) => menuItemId !== id,
+    );
   }
 }

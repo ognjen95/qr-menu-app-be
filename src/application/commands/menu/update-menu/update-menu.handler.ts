@@ -9,7 +9,7 @@ class UpdateMenuHandler implements ICommandHandler<UpdateMenuCommand> {
   constructor(
     @Inject(MENU_REPOSITORY_TOKEN)
     private readonly menuRepository: IMenuRepository,
-  ) {}
+  ) { }
 
   async execute({ dto, currentUser }: UpdateMenuCommand): Promise<string> {
     const [menu] = await this.menuRepository.find({
@@ -23,6 +23,10 @@ class UpdateMenuHandler implements ICommandHandler<UpdateMenuCommand> {
     menu.name = dto.name;
     menu.description = dto.description;
     menu.isVisible = dto.isVisible;
+
+    if (dto.menuSectionIds) {
+      menu.menuSectionIds = dto.menuSectionIds;
+    }
 
     const createdMenu = await this.menuRepository.update(menu);
 

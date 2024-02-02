@@ -8,4 +8,22 @@ export class Menu extends MenuEntity {
   ) {
     super();
   }
+
+  reorderSections = (
+    menuSectionsIds: string[],
+    positionIndex: number,
+    newSectionId: string,
+  ) => {
+    const copy = [...menuSectionsIds];
+
+    copy.splice(positionIndex, 0, newSectionId);
+
+    this.menuSectionIds = copy;
+  };
+
+  removeSection = (id: string) => {
+    this.menuSectionIds = this.menuSectionIds.filter(
+      (menuSectionId) => menuSectionId !== id,
+    );
+  };
 }

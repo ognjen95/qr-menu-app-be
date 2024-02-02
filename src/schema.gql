@@ -43,6 +43,7 @@ input CreateMenuItemInput {
   image: String
   isAvailable: Boolean
   menuId: String!
+  menuItemsIds: [String!]
   menuSectionId: String!
   name: String!
   tags: [String!]
@@ -52,7 +53,9 @@ input CreateMenuItemInput {
 input CreateMenuSectionInput {
   description: String
   menuId: String
+  menuSectionsIds: [String!]! = []
   name: String!
+  positionIndex: Int!
 }
 
 input CreateRestaurantInput {
@@ -124,6 +127,7 @@ type MenuEntity {
   description: String
   id: String!
   isVisible: Boolean!
+  menuSectionIds: [String!]!
   menuSections(options: MenuSectionsOptionsInput): MenuSectionConnection!
   name: String!
   restaurants: [RestaurantEntity!]
@@ -207,6 +211,7 @@ type MenuSectionEntity {
   id: String!
   isVisible: Boolean!
   menuId: String!
+  menuItemIds: [String!]!
   menuItems(options: MenuItemOptionsInput): MenuItemsConnection!
   name: String!
   updatedAt: DateTime!
@@ -242,11 +247,13 @@ type Mutation {
   createUser(args: CreateUserInput!): String!
   deleteMenu(id: String!): String!
   deleteMenuItem(id: String!): String!
+  deleteMenuSection(id: String!): String!
   deleteRestaurant(id: String!): String!
   login(email: String!, password: String!): AuthReturn!
   removeUser(id: String!): UserEntity!
   updateMenu(args: UpdateMenuInput!): String!
   updateMenuItem(args: UpdateMenuItemInput!): String!
+  updateMenuSection(args: UpdateMenuSectionInput!): String!
   updateRestaurant(args: UpdateRestaurantInput!): String!
   updateUser(args: UpdateUserInput!): UserEntity!
 }
@@ -382,6 +389,7 @@ input UpdateMenuInput {
   description: String
   id: String!
   isVisible: Boolean
+  menuSectionIds: [String!]
   name: String
 }
 
@@ -392,10 +400,21 @@ input UpdateMenuItemInput {
   image: String
   isAvailable: Boolean
   menuId: String
+  menuItemsIds: [String!]
   menuSectionId: String
   name: String
   tags: [String!]
   variants: [MenuItemVariantInput!]
+}
+
+input UpdateMenuSectionInput {
+  description: String
+  id: String!
+  menuId: String
+  menuItemIds: [String!]
+  menuSectionsIds: [String!] = []
+  name: String
+  positionIndex: Int
 }
 
 input UpdateRestaurantInput {

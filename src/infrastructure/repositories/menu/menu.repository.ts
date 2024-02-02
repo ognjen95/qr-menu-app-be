@@ -19,11 +19,8 @@ export class MenuRepository implements IMenuRepository {
         name: dto.name,
         tenantId: dto.tenantId,
         description: dto.description,
-        restaurants: {
-          connect: dto.restaurants.map((restaurant) => ({
-            id: restaurant.id,
-          })),
-        },
+        isVisible: dto.isVisible,
+        menuSectionIds: dto.menuSectionIds,
       },
     });
 
@@ -43,6 +40,7 @@ export class MenuRepository implements IMenuRepository {
         name: dto.name,
         description: dto.description,
         isVisible: dto.isVisible,
+        menuSectionIds: dto.menuSectionIds,
         updatedAt: new Date(),
       },
     });

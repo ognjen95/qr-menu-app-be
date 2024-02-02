@@ -19,6 +19,9 @@ export class MenuSectionEntity {
   @Field(() => [MenuItemEntity], { nullable: true })
   menuItems: MenuItem[];
 
+  @Field(() => [String], { defaultValue: [] })
+  menuItemIds: string[] = [];
+
   @Field()
   isVisible: boolean;
 

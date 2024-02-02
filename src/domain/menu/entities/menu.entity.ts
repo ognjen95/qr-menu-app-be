@@ -21,6 +21,9 @@ export class MenuEntity {
   @Field(() => [MenuSectionEntity])
   menuSections: MenuSection[];
 
+  @Field(() => [String], { defaultValue: [] })
+  menuSectionIds: string[] = [];
+
   @Field()
   tenantId: string;
 

@@ -19,15 +19,37 @@ export class MenuSectionRepository implements IMenuSectionRepository {
         name: dto.name,
         description: dto.description,
         menuId: dto.menuId,
+        menuItemIds: dto.menuItemIds,
       },
     });
 
     return plainToInstance(MenuSection, createdMenu);
   }
 
+  async update(dto: MenuSection): Promise<MenuSection> {
+    const updatedMenu = await this.db.menuSection.update({
+      where: { id: dto.id },
+      data: {
+        name: dto.name,
+        description: dto.description,
+        menuId: dto.menuId,
+        menuItemIds: dto.menuItemIds,
+        updatedAt: new Date(),
+      },
+    });
+
+    return plainToInstance(MenuSection, updatedMenu);
+  }
+
   async find(options: MenuSectionsOptionsInput): Promise<MenuSection[]> {
     const foundMenus = await this.db.menuSection.findMany(options);
 
     return plainToInstance(MenuSection, foundMenus);
+  }
+
+  async delete(id: string): Promise<MenuSection> {
+    const deletedMenu = await this.db.menuSection.delete({ where: { id } });
+
+    return plainToInstance(MenuSection, deletedMenu);
   }
 }

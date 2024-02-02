@@ -29,6 +29,9 @@ export class CreateMenuItemInput {
   variants: MenuItemVariantInput[];
 
   @Field(() => [String], { nullable: true })
+  menuItemsIds: string[];
+
+  @Field(() => [String], { nullable: true })
   alergens: string[];
 
   @Field(() => [String], { nullable: true })

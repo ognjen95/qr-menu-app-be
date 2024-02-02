@@ -5,4 +5,7 @@ import { InputType, Field, PartialType } from '@nestjs/graphql';
 export class UpdateMenuInput extends PartialType(CreateMenuInput) {
   @Field()
   id: string;
+
+  @Field(() => [String], { nullable: true })
+  menuSectionIds: string[];
 }

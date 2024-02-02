@@ -15,6 +15,9 @@ import { CurrentUserInfo } from '../auth/types';
 import { MenuItemOptionsInput } from '../../../domain/menu/dto/menu-item-options.input';
 import { GetMenuItemsQuery } from '../../../application/queries/menu/get-menu-items/get-menu-items.query';
 import { MenuItemsConnection } from '../../../domain/menu/entities/menu-items.connection';
+import { UpdateMenuSectionInput } from '../../../domain/menu/dto/update-menu-section.input';
+import { UpdateMenuSectionCommand } from '../../../application/commands/menu/update-menu-section/update-menu-section.command';
+import { DeleteMenuSectionCommand } from '../../../application/commands/menu/delete-menu-section/delete-menu-section.command';
 
 @Resolver(() => MenuSectionEntity)
 export class MenuSectionResolver {
@@ -22,6 +25,27 @@ export class MenuSectionResolver {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) { }
+
+  @Mutation(() => String)
+  async updateMenuSection(
+    @Args('args')
+    args: UpdateMenuSectionInput,
+    @CurrentUser() currentUser: CurrentUserInfo,
+  ) {
+    return await this.commandBus.execute(
+      new UpdateMenuSectionCommand(args, currentUser),
+    );
+  }
+
+  @Mutation(() => String)
+  async deleteMenuSection(
+    @Args('id') id: string,
+    @CurrentUser() currentUser: CurrentUserInfo,
+  ) {
+    return await this.commandBus.execute(
+      new DeleteMenuSectionCommand(id, currentUser),
+    );
+  }
 
   @Mutation(() => String)
   async createMenuSection(

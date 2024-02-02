@@ -22,7 +22,6 @@ import { MenuConnection } from '../../../domain/menu/entities/menu.connection';
 import { IsPublic } from '../../decorators/is-public';
 import { UpdateMenuInput } from '../../../domain/menu/dto/update-menu.input';
 import { UpdateMenuCommand } from '../../../application/commands/menu/update-menu/update-menu.command';
-import { DeleteMenuItemCommand } from '../../../application/commands/menu/delete-menu-item/delete-menu-item.command';
 import { DeleteMenuCommand } from '../../../application/commands/menu/delete-menu/delete-menu.command';
 
 @Resolver(() => MenuEntity)

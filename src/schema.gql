@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Animation {
+  delay: String!
+  duration: String!
+  iteration: String!
+  timing: String!
+  type: String!
+}
+
+input AnimationInput {
+  delay: String!
+  duration: String!
+  iteration: String!
+  timing: String!
+  type: String!
+}
+
 input ApplicantsIdsInput {
   hasSome: String!
 }
@@ -12,9 +28,86 @@ type AuthReturn {
   refreshToken: String!
 }
 
+type Buttons {
+  borderRadius: String!
+}
+
+input ButtonsInput {
+  borderRadius: String!
+}
+
+type Cards {
+  backgroundColor: String!
+  borderRadius: String!
+}
+
+input CardsInput {
+  backgroundColor: String!
+  borderRadius: String!
+}
+
 type Chat {
   token: String!
   userId: String!
+}
+
+type ColorPallete {
+  background: String!
+  cards: String!
+  headers: String!
+  primary: String!
+  secondary: String!
+  surface: String!
+  tertiary: String!
+  text: String!
+}
+
+input ColorPalleteInput {
+  background: String!
+  cards: String!
+  headers: String!
+  primary: String!
+  secondary: String!
+  surface: String!
+  tertiary: String!
+  text: String!
+}
+
+enum ComponentType {
+  BUTTON
+  CALENDAR
+  CARD
+  CHART
+  DIV
+  FOOTER
+  FORM
+  GRID
+  H1
+  H2
+  H3
+  H4
+  H5
+  H6
+  ICON
+  IMAGE
+  INPUT
+  LINK
+  LIST
+  LOADER
+  LOGO
+  MAP
+  MODAL
+  NAVIGATION
+  P
+  SECTION
+  SECTION_TITLE
+  SPAN
+  SVG
+  TABLE
+  TEXT
+  TIMER
+  TOAST
+  VIDEO
 }
 
 input CreateCustomerTentantInput {
@@ -79,6 +172,25 @@ input CreateTaskInput {
   type: TaskType!
 }
 
+input CreateThemeConfigurationInput {
+  animation: AnimationInput
+  background: ThemeBackgroundInput
+  buttons: ButtonsInput
+  cards: CardsInput
+  colorPallete: ColorPalleteInput
+  footer: FooterInput
+  logo: LogoInput
+  navigation: NavigationInput
+  sections: [ThemeSectionEntityInput!] = []
+  title: String!
+  typography: ThemeTypographyInput
+}
+
+input CreateThemeSectionInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateUserInput {
   birthday: DateTime
   email: String!
@@ -97,6 +209,27 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Footer {
+  backgroundColor: String!
+  color: String!
+  fontSize: String!
+  fontWeight: String!
+  layout: FooterLayout!
+}
+
+input FooterInput {
+  backgroundColor: String!
+  color: String!
+  fontSize: String!
+  fontWeight: String!
+  layout: FooterLayout!
+}
+
+enum FooterLayout {
+  HORIZONTAL
+  VERTICAL
+}
+
 type LocationEntity {
   address: String
   city: String
@@ -109,6 +242,14 @@ input LocationInput {
   city: String
   country: String
   state: String
+}
+
+type Logo {
+  url: String!
+}
+
+input LogoInput {
+  url: String!
 }
 
 type MenuConnection {
@@ -244,18 +385,46 @@ type Mutation {
   createMenuSection(createMenuSectionInput: CreateMenuSectionInput!): String!
   createRestaurant(args: CreateRestaurantInput!): String!
   createTask(createTaskInput: CreateTaskInput!): TaskEntity!
+  createThemeConfiguration(args: CreateThemeConfigurationInput!): String!
+  createThemeSection(createThemeSectionInput: CreateThemeSectionInput!): ThemeSectionEntity!
   createUser(args: CreateUserInput!): String!
   deleteMenu(id: String!): String!
   deleteMenuItem(id: String!): String!
   deleteMenuSection(id: String!): String!
   deleteRestaurant(id: String!): String!
   login(email: String!, password: String!): AuthReturn!
+  removeThemeSection(id: Int!): ThemeSectionEntity!
   removeUser(id: String!): UserEntity!
   updateMenu(args: UpdateMenuInput!): String!
   updateMenuItem(args: UpdateMenuItemInput!): String!
   updateMenuSection(args: UpdateMenuSectionInput!): String!
   updateRestaurant(args: UpdateRestaurantInput!): String!
+  updateThemeSection(updateThemeSectionInput: UpdateThemeSectionInput!): ThemeSectionEntity!
   updateUser(args: UpdateUserInput!): UserEntity!
+}
+
+type Navigation {
+  backgroundColor: String!
+  fontSize: String!
+  fontWeight: String!
+  layout: NavigationLayout!
+  navigationLinksColors: String!
+}
+
+input NavigationInput {
+  backgroundColor: String!
+  fontSize: String!
+  fontWeight: String!
+  layout: NavigationLayout!
+  navigationLinksColors: String!
+}
+
+enum NavigationLayout {
+  CENTER
+  LEFT
+  RIGHT
+  SPACE_BETWEEN
+  STACKED
 }
 
 type PageInfo {
@@ -270,8 +439,33 @@ type PresignedUrlReturn {
   link: String!
 }
 
+type Props {
+  alt: String
+  className: String
+  id: String
+  name: String
+  onClick: String
+  placeholder: String
+  src: String
+  type: String
+  value: String
+}
+
+input PropsInput {
+  alt: String
+  className: String
+  id: String
+  name: String
+  onClick: String
+  placeholder: String
+  src: String
+  type: String
+  value: String
+}
+
 type Query {
   chatAccessToken: Chat!
+  findThemeById(id: String!): ThemeConfigurationEntity!
   menu(options: MenuOptionsInput): MenuEntity!
   menuItem: [MenuItemEntity!]!
   menus(options: MenuOptionsInput): MenuConnection!
@@ -279,6 +473,7 @@ type Query {
   publicMenu(options: MenuOptionsInput): MenuEntity!
   restaurants(options: RestaurantOptionsInput): RestaurantConnection!
   tasks(options: TaskQueryOptionsInput): TaskConnection!
+  themeSection(id: Int!): ThemeSectionEntity!
   userById(id: String!): UserEntity!
   users(args: UserQueryOptionsInput): UserConnection!
 }
@@ -318,6 +513,66 @@ input RestaurantOptionsInput {
 input RestaurantWhere {
   id: RestaurantIdInput
   tenantId: String
+}
+
+type Style {
+  alignItems: String
+  background: String
+  backgroundColor: String
+  border: String
+  borderRadius: String
+  bottom: String
+  boxShadow: String
+  color: String
+  display: String
+  flex: String
+  flexDirection: String
+  flexWrap: String
+  fontSize: String
+  fontWeight: String
+  height: String
+  justifyContent: String
+  left: String
+  margin: String
+  overflow: String
+  padding: String
+  position: String
+  right: String
+  textAlign: String
+  top: String
+  transform: String
+  width: String
+  zIndex: String
+}
+
+input StyleInput {
+  alignItems: String
+  background: String
+  backgroundColor: String
+  border: String
+  borderRadius: String
+  bottom: String
+  boxShadow: String
+  color: String
+  display: String
+  flex: String
+  flexDirection: String
+  flexWrap: String
+  fontSize: String
+  fontWeight: String
+  height: String
+  justifyContent: String
+  left: String
+  margin: String
+  overflow: String
+  padding: String
+  position: String
+  right: String
+  textAlign: String
+  top: String
+  transform: String
+  width: String
+  zIndex: String
 }
 
 type TaskConnection {
@@ -385,6 +640,97 @@ enum TaskType {
   TASK
 }
 
+type Text {
+  color: String
+  fontFamily: String
+  fontSize: String
+  weight: String
+}
+
+input TextInput {
+  color: String
+  fontFamily: String
+  fontSize: String
+  weight: String
+}
+
+type ThemeBackground {
+  color: String!
+  image: String!
+}
+
+input ThemeBackgroundInput {
+  color: String!
+  image: String!
+}
+
+type ThemeConfigurationEntity {
+  animation: Animation!
+  background: ThemeBackground!
+  buttons: Buttons!
+  cards: Cards!
+  colorPallete: ColorPallete!
+  createdAt: DateTime!
+  footer: Footer!
+  id: String!
+  logo: Logo!
+  navigation: Navigation!
+  sections: [ThemeSectionEntity!]!
+  title: String!
+  typography: ThemeTypography!
+  updatedAt: DateTime!
+}
+
+type ThemeSectionComponent {
+  props: Props
+  style: Style
+  title: String!
+  type: ComponentType!
+}
+
+input ThemeSectionComponentInput {
+  props: PropsInput
+  style: StyleInput
+  title: String!
+  type: ComponentType!
+}
+
+type ThemeSectionEntity {
+  components: [ThemeSectionComponent!]
+  description: String!
+  id: String!
+  props: Props
+  style: Style
+  title: String!
+}
+
+input ThemeSectionEntityInput {
+  components: [ThemeSectionComponentInput!] = []
+  description: String!
+  id: String!
+  props: PropsInput
+  style: StyleInput
+  title: String!
+}
+
+type ThemeTypography {
+  fontSize: TypographySize!
+  headers: Text!
+  text: Text!
+}
+
+input ThemeTypographyInput {
+  fontSize: TypographySize!
+  headers: TextInput!
+  text: TextInput!
+}
+
+enum TypographySize {
+  LARGE
+  MEDIUM
+  SMALL
+}
+
 input UpdateMenuInput {
   description: String
   id: String!
@@ -424,6 +770,12 @@ input UpdateRestaurantInput {
   location: LocationInput
   menuId: String
   name: String
+}
+
+input UpdateThemeSectionInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateUserInput {

@@ -53,21 +53,21 @@ model MenuSection {
   menu   Menu?   @relation(fields: [menuId], references: [id])
   menuId String? @db.ObjectId
 
-  menuItems MenuItem[]
+  menuItems   MenuItem[]
   menuItemIds String[]
 }
 
 model MenuItem {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String            @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String?
-  variants MenuItemVariant[]
-  alergens String[]
-  tags     String[]
-  image String?
-  isAvailable Boolean @default(true)
-  section   MenuSection? @relation(fields: [sectionId], references: [id])
-  sectionId String?      @db.ObjectId
+  variants    MenuItemVariant[]
+  alergens    String[]
+  tags        String[]
+  image       String?
+  isAvailable Boolean           @default(true)
+  section     MenuSection?      @relation(fields: [sectionId], references: [id])
+  sectionId   String?           @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -87,7 +87,7 @@ model Menu {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  menuSection MenuSection[]
+  menuSection    MenuSection[]
   menuSectionIds String[]
 }
 
@@ -184,4 +184,217 @@ enum UserRoles {
   CUSTOMER_OWNER
   CUSTOMER_EMPLOYEE
   VISITOR_CLIENT
+}
+
+type ThemeSectionComponent {
+  title String
+  type  ComponentType
+  style Style
+  props Props
+}
+
+model ThemeSection {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String @unique
+  description String
+  style       Style
+  props       Props
+  components ThemeSectionComponent[]
+
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime                @default(now())
+}
+
+type ThemeSectionConfig {
+  id          String
+  title       String
+  description String
+  style       Style
+  props       Props
+  components  ThemeSectionComponent[]
+
+  createdAt   DateTime
+  updatedAt   DateTime
+}
+
+model ThemeConfig {
+  id           String               @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  colorPallete ColorPallete
+  typography   ThemeTypography
+  logo         Logo
+  navigation   Navigation
+  footer       Footer
+  buttons      Buttons
+  cards        Cards
+  background   ThemeBackground
+  sections     ThemeSectionConfig[]
+  animation Animation
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+}
+
+type Animation {
+  duration  String
+  timing    String?
+  delay     String?
+  iteration String?
+  type      String?
+}
+
+type ThemeBackground {
+  color String
+  image String
+}
+
+enum NavigationLayout {
+  SPACE_BETWEEN
+  LEFT
+  RIGHT
+  CENTER
+  STACKED
+}
+
+enum FooterLayout {
+  HORIZONTAL
+  VERTICAL
+}
+
+enum ComponentType {
+  DIV
+  BUTTON
+  INPUT
+  TEXT
+  IMAGE
+  LOGO
+  NAVIGATION
+  FOOTER
+  SECTION
+  SECTION_TITLE
+  CARD
+  MODAL
+  TOAST
+  LOADER
+  FORM
+  TABLE
+  LIST
+  GRID
+  MAP
+  CHART
+  CALENDAR
+  TIMER
+  H1
+  H2
+  H3
+  H4
+  H5
+  H6
+  P
+  SPAN
+  LINK
+  ICON
+  SVG
+  VIDEO
+}
+
+type Style {
+  padding         String?
+  margin          String?
+  color           String?
+  backgroundColor String?
+  background      String?
+  border          String?
+  borderRadius    String?
+  fontSize        String?
+  fontWeight      String?
+  textAlign       String?
+  display         String?
+  flexDirection   String?
+  justifyContent  String?
+  alignItems      String?
+  flexWrap        String?
+  flex            String?
+  width           String?
+  height          String?
+  position        String?
+  top             String?
+  right           String?
+  bottom          String?
+  left            String?
+  zIndex          String?
+  boxShadow       String?
+  overflow        String?
+  transform       String?
+}
+
+type Props {
+  className   String?
+  id          String?
+  onClick     String?
+  src         String?
+  alt         String?
+  type        String?
+  value       String?
+  placeholder String?
+  name        String?
+}
+
+type ColorPallete {
+  primary    String
+  secondary  String
+  tertiary   String
+  text       String
+  headers    String
+  background String
+  surface    String
+  cards      String
+}
+
+type Text {
+  fontSize   String?
+  fontFamily String?
+  color      String?
+  weight     String?
+}
+
+enum TypographySize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+type ThemeTypography {
+  fontSize TypographySize
+  headers  Text
+  text     Text
+}
+
+type Logo {
+  url String
+}
+
+type Navigation {
+  layout                NavigationLayout
+  backgroundColor       String
+  navigationLinksColors String
+  fontSize              String
+  fontWeight            String
+}
+
+type Footer {
+  layout          FooterLayout
+  backgroundColor String
+  color           String
+  fontSize        String
+  fontWeight      String
+}
+
+type Buttons {
+  borderRadius String
+}
+
+type Cards {
+  backgroundColor String?
+  borderRadius    String?
 }

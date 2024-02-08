@@ -17,6 +17,8 @@ import { RestaurantModule } from './presentation/modules/restaurant/restaurant.m
 import { MenuSectionModule } from './presentation/modules/menu/menu-section.module';
 import { MenuItemModule } from './presentation/modules/menu/menu-item.module';
 import { FilesModule } from './presentation/modules/files.module';
+import { ThemeConfigurationModule } from './presentation/modules/theme/theme-configuration.module';
+import { ThemeSectionModule } from './presentation/modules/theme/theme-section.module';
 
 @Module({
   imports: [
@@ -42,6 +44,8 @@ import { FilesModule } from './presentation/modules/files.module';
     MenuSectionModule,
     MenuItemModule,
     FilesModule,
+    ThemeConfigurationModule,
+    ThemeSectionModule,
   ],
   controllers: [],
   providers: [

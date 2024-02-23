@@ -1,4 +1,6 @@
 import {
+  ButtonSize,
+  ButtonType,
   ComponentType,
   FooterLayout,
   NavigationLayout,
@@ -11,7 +13,10 @@ export const themeConfigMapper = (
   dto: ThemeConfig,
 ): Prisma.ThemeConfigCreateInput => ({
   title: dto.title,
-  cards: dto.cards,
+  cards: {
+    borderRadius: dto?.cards?.borderRadius ?? '',
+    backgroundColor: dto?.cards?.backgroundColor ?? '',
+  },
   colorPallete: dto.colorPallete,
   typography: {
     fontSize: TypographySize[dto.typography.fontSize],
@@ -50,7 +55,12 @@ export const themeConfigMapper = (
     fontWeight: dto.navigation.fontWeight,
     navigationLinksColors: dto.navigation.navigationLinksColors,
   },
-  buttons: dto.buttons,
+  buttons: {
+    borderRadius: dto?.buttons?.borderRadius ?? '',
+    buttonHover: dto?.buttons?.buttonHover ?? true,
+    buttonSize: ButtonSize[dto?.buttons?.buttonSize] ?? ButtonSize.MEDIUM,
+    buttonType: ButtonType[dto?.buttons?.buttonType] ?? ButtonType.FILLED,
+  },
   createdAt: new Date(),
   updatedAt: new Date(),
 });

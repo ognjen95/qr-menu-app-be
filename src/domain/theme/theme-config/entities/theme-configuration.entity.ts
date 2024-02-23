@@ -11,6 +11,15 @@ import { ThemeSection } from '../../theme-section';
 export class Buttons {
   @Field()
   borderRadius: string;
+
+  @Field(() => ButtonType)
+  buttonType: ButtonType;
+
+  @Field(() => ButtonSize)
+  buttonSize: ButtonSize;
+
+  @Field()
+  buttonHover: boolean;
 }
 
 @ObjectType()
@@ -370,6 +379,26 @@ export enum ComponentType {
   SVG = 'SVG',
   VIDEO = 'VIDEO',
 }
+
+export enum ButtonType {
+  FILLED = 'FILLED',
+  OUTLINED = 'OUTLINED',
+  TEXT = 'TEXT',
+}
+
+export enum ButtonSize {
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+  LARGE = 'LARGE',
+}
+
+registerEnumType(ButtonType, {
+  name: 'ButtonType',
+});
+
+registerEnumType(ButtonSize, {
+  name: 'ButtonSize',
+});
 
 registerEnumType(TypographySize, {
   name: 'TypographySize',

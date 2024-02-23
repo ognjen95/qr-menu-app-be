@@ -28,12 +28,30 @@ type AuthReturn {
   refreshToken: String!
 }
 
+enum ButtonSize {
+  LARGE
+  MEDIUM
+  SMALL
+}
+
+enum ButtonType {
+  FILLED
+  OUTLINED
+  TEXT
+}
+
 type Buttons {
   borderRadius: String!
+  buttonHover: Boolean!
+  buttonSize: ButtonSize!
+  buttonType: ButtonType!
 }
 
 input ButtonsInput {
   borderRadius: String!
+  buttonHover: Boolean!
+  buttonSize: ButtonSize!
+  buttonType: ButtonType!
 }
 
 type Cards {

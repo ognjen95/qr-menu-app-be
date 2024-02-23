@@ -1,5 +1,7 @@
 import { CreateThemeConfigurationInput } from './theme-config/dto/create-theme-configuration.input';
 import {
+  ButtonSize,
+  ButtonType,
   ComponentType,
   FooterLayout,
   NavigationLayout,
@@ -58,6 +60,9 @@ export class ThemeConfig extends ThemeConfigurationEntity {
     };
     this.buttons = {
       borderRadius: dto?.buttons?.borderRadius ?? '',
+      buttonHover: dto?.buttons?.buttonHover ?? true,
+      buttonSize: dto?.buttons?.buttonSize ?? ButtonSize.MEDIUM,
+      buttonType: dto?.buttons?.buttonType ?? ButtonType.FILLED,
     };
     this.cards = {
       borderRadius: dto?.cards?.borderRadius ?? '',

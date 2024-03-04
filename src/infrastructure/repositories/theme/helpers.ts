@@ -13,6 +13,7 @@ export const themeConfigMapper = (
   dto: ThemeConfig,
 ): Prisma.ThemeConfigCreateInput => ({
   title: dto.title,
+  id: dto.id,
   cards: {
     borderRadius: dto?.cards?.borderRadius ?? '',
     backgroundColor: dto?.cards?.backgroundColor ?? '',
@@ -58,9 +59,10 @@ export const themeConfigMapper = (
   buttons: {
     borderRadius: dto?.buttons?.borderRadius ?? '',
     buttonHover: dto?.buttons?.buttonHover ?? true,
-    buttonSize: ButtonSize[dto?.buttons?.buttonSize] ?? ButtonSize.MEDIUM,
-    buttonType: ButtonType[dto?.buttons?.buttonType] ?? ButtonType.FILLED,
+    buttonSize: dto?.buttons?.buttonSize ?? ButtonSize.MEDIUM,
+    buttonType: dto?.buttons?.buttonType ?? ButtonType.FILLED,
   },
   createdAt: new Date(),
   updatedAt: new Date(),
+  tenantId: dto.tenantId,
 });

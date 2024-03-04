@@ -1,11 +1,11 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ThemeConfigurationEntity } from '../../../domain/theme/theme-config/entities/theme-configuration.entity';
-import { CreateThemeConfigurationInput } from '../../../domain/theme/theme-config/dto/create-theme-configuration.input';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateThemeCommand } from '../../../application/commands/theme/create-theme/create-theme.command';
+import { SaveThemeCommand } from '../../../application/commands/theme/save-theme/save-theme.command';
 import { CurrentUser } from '../../decorators/current-user';
 import { CurrentUserInfo } from '../auth/types';
-import { FindThemeByIdQuery } from '../../../application/queries/theme/find-theme-by-Id/find-theme-by-id.query';
+import { UpdateThemeConfigurationInput } from '../../../domain/theme/theme-config/dto/update-theme-configuration.input';
+import { FindThemeByIdQuery } from '../../../application/queries/theme/find-theme-by-tenant-id/find-theme-by-id.query';
 
 @Resolver(() => ThemeConfigurationEntity)
 export class ThemeConfigurationResolver {
@@ -15,18 +15,19 @@ export class ThemeConfigurationResolver {
   ) { }
 
   @Mutation(() => String)
-  createThemeConfiguration(
-    @Args('args') args: CreateThemeConfigurationInput,
+  saveThemeConfiguration(
+    @Args('args') args: UpdateThemeConfigurationInput,
     @CurrentUser() currentUser: CurrentUserInfo,
   ) {
-    return this.commandBus.execute(new CreateThemeCommand(args, currentUser));
+    const argsWithId = { ...args, id: args.id ?? '' };
+
+    return this.commandBus.execute(new SaveThemeCommand(argsWithId, currentUser));
   }
 
   @Query(() => ThemeConfigurationEntity)
-  findThemeById(
-    @Args('id') id: string,
+  findThemeByTenantId(
     @CurrentUser() currentUser: CurrentUserInfo,
   ) {
-    return this.queryBus.execute(new FindThemeByIdQuery(id, currentUser));
+    return this.queryBus.execute(new FindThemeByIdQuery(currentUser));
   }
 }

@@ -7,6 +7,7 @@ import { IThemeRepository } from '../../../application/common/interfaces/theme/t
 
 @Injectable()
 export class ThemeRepository implements IThemeRepository {
+
   private readonly caseSensitive = 'insensitive';
 
   @Inject()
@@ -15,7 +16,32 @@ export class ThemeRepository implements IThemeRepository {
   async create(dto: ThemeConfig): Promise<ThemeConfig> {
     const data = themeConfigMapper(dto);
 
-    console.log({ data, dto });
+
+    const themeConfig = await this.db.themeConfig.create({
+      data,
+    });
+
+    return plainToInstance(ThemeConfig, themeConfig);
+  }
+
+  async createOrUpdate(dto: ThemeConfig): Promise<ThemeConfig> {
+    console.log({ repoID: dto.id })
+    const data = themeConfigMapper(dto);
+
+    const templateId = dto.id;
+    console.log({ id: dto.id })
+    const shouldUpdate = !!dto.id;
+
+    delete data.id;
+
+    if (shouldUpdate) {
+      const themeConfig = await this.db.themeConfig.update({
+        where: { id: templateId },
+        data,
+      });
+
+      return plainToInstance(ThemeConfig, themeConfig);
+    }
 
     const themeConfig = await this.db.themeConfig.create({
       data,
@@ -39,6 +65,14 @@ export class ThemeRepository implements IThemeRepository {
     });
 
     return plainToInstance(ThemeConfig, themeConfig);
+  }
+
+  async findByTenantId(tenantId: string): Promise<ThemeConfig> {
+    const themeConfig = await this.db.themeConfig.findFirst({
+      where: { tenantId },
+    });
+
+    return plainToInstance(ThemeConfig, themeConfig)
   }
 
   find(options?: any): Promise<ThemeConfig[]> {

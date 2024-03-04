@@ -189,16 +189,16 @@ enum UserRoles {
 type ThemeSectionComponent {
   title String
   type  ComponentType
-  style Style
-  props Props
+  style Style?
+  props Props?
 }
 
 model ThemeSection {
   id          String                  @id @default(auto()) @map("_id") @db.ObjectId
   title       String                  @unique
   description String
-  style       Style
-  props       Props
+  style       Style?
+  props       Props?
   components  ThemeSectionComponent[]
 
   createdAt DateTime @default(now())
@@ -209,8 +209,8 @@ type ThemeSectionConfig {
   id          String
   title       String
   description String
-  style       Style
-  props       Props
+  style       Style?
+  props       Props?
   components  ThemeSectionComponent[]
 
   createdAt DateTime
@@ -233,6 +233,8 @@ model ThemeConfig {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  tenantId String? @db.ObjectId
 }
 
 type Animation {
@@ -406,7 +408,7 @@ type Cards {
 enum ButtonType {
   FILLED
   OUTLINED
-  TRANSPARENT
+  TEXT
 }
 
 enum ButtonSize {

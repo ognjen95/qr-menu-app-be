@@ -12,8 +12,8 @@ class FindThemeByIdHandler implements IQueryHandler<FindThemeByIdQuery> {
     private readonly themeRepository: IThemeRepository
   ) { }
 
-  async execute({ id }: FindThemeByIdQuery): Promise<ThemeConfig> {
-    const createdTheme = await this.themeRepository.findById(id);
+  async execute({ currentUser }: FindThemeByIdQuery): Promise<ThemeConfig> {
+    const createdTheme = await this.themeRepository.findByTenantId(currentUser.tenantId);
 
     return createdTheme;
   }

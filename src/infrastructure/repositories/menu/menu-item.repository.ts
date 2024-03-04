@@ -22,6 +22,9 @@ export class MenuItemRepository implements IMenuItemRepository {
         image: dto.image,
         tags: dto.tags,
         alergens: dto.alergens,
+        isAvailable: dto.isAvailable,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     });
 

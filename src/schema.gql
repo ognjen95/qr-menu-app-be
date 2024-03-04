@@ -190,20 +190,6 @@ input CreateTaskInput {
   type: TaskType!
 }
 
-input CreateThemeConfigurationInput {
-  animation: AnimationInput
-  background: ThemeBackgroundInput
-  buttons: ButtonsInput
-  cards: CardsInput
-  colorPallete: ColorPalleteInput
-  footer: FooterInput
-  logo: LogoInput
-  navigation: NavigationInput
-  sections: [ThemeSectionEntityInput!] = []
-  title: String!
-  typography: ThemeTypographyInput
-}
-
 input CreateThemeSectionInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -403,7 +389,6 @@ type Mutation {
   createMenuSection(createMenuSectionInput: CreateMenuSectionInput!): String!
   createRestaurant(args: CreateRestaurantInput!): String!
   createTask(createTaskInput: CreateTaskInput!): TaskEntity!
-  createThemeConfiguration(args: CreateThemeConfigurationInput!): String!
   createThemeSection(createThemeSectionInput: CreateThemeSectionInput!): ThemeSectionEntity!
   createUser(args: CreateUserInput!): String!
   deleteMenu(id: String!): String!
@@ -413,6 +398,7 @@ type Mutation {
   login(email: String!, password: String!): AuthReturn!
   removeThemeSection(id: Int!): ThemeSectionEntity!
   removeUser(id: String!): UserEntity!
+  saveThemeConfiguration(args: UpdateThemeConfigurationInput!): String!
   updateMenu(args: UpdateMenuInput!): String!
   updateMenuItem(args: UpdateMenuItemInput!): String!
   updateMenuSection(args: UpdateMenuSectionInput!): String!
@@ -483,7 +469,7 @@ input PropsInput {
 
 type Query {
   chatAccessToken: Chat!
-  findThemeById(id: String!): ThemeConfigurationEntity!
+  findThemeByTenantId: ThemeConfigurationEntity!
   menu(options: MenuOptionsInput): MenuEntity!
   menuItem: [MenuItemEntity!]!
   menus(options: MenuOptionsInput): MenuConnection!
@@ -694,6 +680,7 @@ type ThemeConfigurationEntity {
   logo: Logo!
   navigation: Navigation!
   sections: [ThemeSectionEntity!]!
+  tenantId: String
   title: String!
   typography: ThemeTypography!
   updatedAt: DateTime!
@@ -788,6 +775,21 @@ input UpdateRestaurantInput {
   location: LocationInput
   menuId: String
   name: String
+}
+
+input UpdateThemeConfigurationInput {
+  animation: AnimationInput
+  background: ThemeBackgroundInput
+  buttons: ButtonsInput
+  cards: CardsInput
+  colorPallete: ColorPalleteInput
+  footer: FooterInput
+  id: String!
+  logo: LogoInput
+  navigation: NavigationInput
+  sections: [ThemeSectionEntityInput!] = []
+  title: String
+  typography: ThemeTypographyInput
 }
 
 input UpdateThemeSectionInput {

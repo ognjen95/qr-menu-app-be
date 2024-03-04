@@ -17,6 +17,7 @@ export class CustomerTenantRepository implements ICustomerTenantRepository {
         id: dto.id,
         name: dto.name,
         email: dto.email,
+        createdAt: new Date(),
       },
     });
 

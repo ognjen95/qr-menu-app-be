@@ -1,4 +1,4 @@
-import { CreateThemeConfigurationInput } from './theme-config/dto/create-theme-configuration.input';
+import { UpdateThemeConfigurationInput } from './theme-config/dto/update-theme-configuration.input';
 import {
   ButtonSize,
   ButtonType,
@@ -14,8 +14,9 @@ export class ThemeConfig extends ThemeConfigurationEntity {
     super();
   }
 
-  generateThemeConfig(dto: CreateThemeConfigurationInput) {
+  generateThemeConfig(dto: UpdateThemeConfigurationInput & { tenantId: string }) {
     this.title = dto?.title ?? '';
+    this.id = dto?.id ?? '';
     this.colorPallete = {
       primary: dto?.colorPallete?.primary ?? '',
       secondary: dto?.colorPallete?.secondary ?? '',
@@ -96,5 +97,6 @@ export class ThemeConfig extends ThemeConfigurationEntity {
     };
     this.createdAt = new Date();
     this.updatedAt = new Date();
+    this.tenantId = dto?.tenantId ?? '';
   }
 }

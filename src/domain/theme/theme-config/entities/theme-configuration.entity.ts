@@ -322,6 +322,9 @@ export class ThemeConfigurationEntity {
 
   @Field()
   updatedAt: Date;
+
+  @Field({ nullable: true })
+  tenantId: string;
 }
 
 export enum TypographySize {

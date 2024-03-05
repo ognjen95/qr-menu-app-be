@@ -325,6 +325,9 @@ export class ThemeConfigurationEntity {
 
   @Field({ nullable: true })
   tenantId: string;
+
+  @Field(() => [WebsitePage], { nullable: true })
+  activePages: WebsitePage[];
 }
 
 export enum TypographySize {
@@ -395,6 +398,25 @@ export enum ButtonSize {
   LARGE = 'LARGE',
 }
 
+export enum WebsitePage {
+  HOME = "home",
+  ABOUT = "about",
+  CONTACT = "contact",
+  MENU = "menu",
+  ORDER = "order",
+  RESERVATIONS = "reservations",
+  EVENTS = "events",
+  GALLERY = "gallery",
+  BLOG = "blog",
+  CAREERS = "careers",
+  PRIVACY = "privacy",
+  TERMS = "terms",
+}
+
+registerEnumType(WebsitePage, {
+  name: 'SectionPage',
+});
+
 registerEnumType(ButtonType, {
   name: 'ButtonType',
 });
@@ -452,6 +474,9 @@ export class ThemeSectionEntity {
 
   @Field(() => Props, { nullable: true })
   props: Props;
+
+  @Field({ nullable: true })
+  page: string;
 
   @Field(() => [ThemeSectionComponent], { nullable: true })
   components: ThemeSectionComponent[] = [];

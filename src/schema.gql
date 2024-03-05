@@ -519,6 +519,21 @@ input RestaurantWhere {
   tenantId: String
 }
 
+enum SectionPage {
+  ABOUT
+  BLOG
+  CAREERS
+  CONTACT
+  EVENTS
+  GALLERY
+  HOME
+  MENU
+  ORDER
+  PRIVACY
+  RESERVATIONS
+  TERMS
+}
+
 type Style {
   alignItems: String
   background: String
@@ -669,6 +684,7 @@ input ThemeBackgroundInput {
 }
 
 type ThemeConfigurationEntity {
+  activePages: [SectionPage!]
   animation: Animation!
   background: ThemeBackground!
   buttons: Buttons!
@@ -704,6 +720,7 @@ type ThemeSectionEntity {
   components: [ThemeSectionComponent!]
   description: String!
   id: String!
+  page: String
   props: Props
   style: Style
   title: String!
@@ -713,6 +730,7 @@ input ThemeSectionEntityInput {
   components: [ThemeSectionComponentInput!] = []
   description: String!
   id: String!
+  page: String
   props: PropsInput
   style: StyleInput
   title: String!
@@ -778,6 +796,7 @@ input UpdateRestaurantInput {
 }
 
 input UpdateThemeConfigurationInput {
+  activePages: [SectionPage!]
   animation: AnimationInput
   background: ThemeBackgroundInput
   buttons: ButtonsInput

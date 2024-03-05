@@ -7,6 +7,7 @@ import {
   NavigationLayout,
   ThemeConfigurationEntity,
   TypographySize,
+  WebsitePage,
 } from './theme-config/entities/theme-configuration.entity';
 
 export class ThemeConfig extends ThemeConfigurationEntity {
@@ -17,6 +18,7 @@ export class ThemeConfig extends ThemeConfigurationEntity {
   generateThemeConfig(dto: UpdateThemeConfigurationInput & { tenantId: string }) {
     this.title = dto?.title ?? '';
     this.id = dto?.id ?? '';
+    this.activePages = dto?.activePages;
     this.colorPallete = {
       primary: dto?.colorPallete?.primary ?? '',
       secondary: dto?.colorPallete?.secondary ?? '',
@@ -78,6 +80,7 @@ export class ThemeConfig extends ThemeConfigurationEntity {
       description: section?.description ?? '',
       style: section?.style,
       props: section?.props,
+      page: section?.page ?? "",
       components: section?.components?.map((component) => ({
         title: component?.title ?? '',
         style: component?.style,

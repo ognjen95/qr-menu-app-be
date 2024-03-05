@@ -10,6 +10,7 @@ import {
   ThemeSectionEntity,
   ThemeTypography,
   Animation,
+  WebsitePage,
 } from '../entities/theme-configuration.entity';
 import { ThemeSection } from '../../theme-section';
 
@@ -47,4 +48,7 @@ export class CreateThemeConfigurationInput {
 
   @Field(() => Animation, { nullable: true })
   animation: Animation;
+
+  @Field(() => [WebsitePage], { nullable: true })
+  activePages: WebsitePage[];
 }

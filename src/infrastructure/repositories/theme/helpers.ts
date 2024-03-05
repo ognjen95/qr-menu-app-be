@@ -14,6 +14,7 @@ export const themeConfigMapper = (
 ): Prisma.ThemeConfigCreateInput => ({
   title: dto.title,
   id: dto.id,
+  activePages: dto.activePages,
   cards: {
     borderRadius: dto?.cards?.borderRadius ?? '',
     backgroundColor: dto?.cards?.backgroundColor ?? '',
@@ -28,6 +29,7 @@ export const themeConfigMapper = (
   animation: dto.animation,
   sections: dto.sections.map((section) => ({
     title: section.title,
+    page: section.page ?? '',
     description: section.description,
     style: section.style,
     props: section.props,

@@ -200,6 +200,7 @@ model ThemeSection {
   style       Style?
   props       Props?
   components  ThemeSectionComponent[]
+  page        String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
@@ -212,6 +213,7 @@ type ThemeSectionConfig {
   style       Style?
   props       Props?
   components  ThemeSectionComponent[]
+  page        String?
 
   createdAt DateTime
   updatedAt DateTime
@@ -220,6 +222,7 @@ type ThemeSectionConfig {
 model ThemeConfig {
   id           String               @id @default(auto()) @map("_id") @db.ObjectId
   title        String
+  activePages  String[]
   colorPallete ColorPallete
   typography   ThemeTypography
   logo         Logo
@@ -394,7 +397,7 @@ type Footer {
 
 type Buttons {
   borderRadius String
-  buttonHover  Boolean @default(true)
+  buttonHover  Boolean    @default(true)
   buttonType   ButtonType
   buttonSize   ButtonSize
 }
@@ -402,7 +405,6 @@ type Buttons {
 type Cards {
   backgroundColor String?
   borderRadius    String?
-
 }
 
 enum ButtonType {
